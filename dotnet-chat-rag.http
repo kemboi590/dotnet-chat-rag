@@ -1,40 +1,15 @@
 @dotnet_chat_rag_HostAddress = http://localhost:5080
-@API_KEY = BMUkarf6ePtyjSRDdOlk9K1svu18r2Hyr3xOg2JNOA47qPjEChXQJQQJ99AKACrIdLPXJ3w3AAAAACOGRLJq
+
 GET {{dotnet_chat_rag_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ### Ask gpt a question
-POST https://dotnetchat4614159492.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-08-01-preview
-Content-Type: application/json
-api-key: {{API_KEY}}
 
-{
-  "messages": [
-    {
-      "role": "system",
-      "content": [
-        {
-          "type": "text",
-          "text": "You are an AI assistant that helps people find information."
-        }
-      ]
-    },
-    {
-      "role": "user",
-      "content": [
-        {
-          "type": "text",
-          "text": "What is python?"
-        }
-      ]
-    }
-  ]
-}
 
 ### Chat/ask
 POST {{dotnet_chat_rag_HostAddress}}/api/chat/ask
 Content-Type: application/json
 
 {
-  "question": "What is python?"
+  "question": "What is java?"
 }

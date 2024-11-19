@@ -8,13 +8,10 @@ using Microsoft.Extensions.Options;
 
 namespace dotnet_chat_rag.Controllers
 {
-    [Route("api/[controller]")] //api/chat/ask
+    [Route("api/[controller]")] //https://localhost:5001/api/chat/ask
     [ApiController]
     public class ChatController : ControllerBase
     {
-        // private const string API_KEY = "BMUkarf6ePtyjSRDdOlk9K1svu18r2Hyr3xOg2JNOA47qPjEChXQJQQJ99AKACrIdLPXJ3w3AAAAACOGRLJq"; // Set your API key here
-        // private const string ENDPOINT = "https://dotnetchat4614159492.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-08-01-preview";
-
         private readonly ApiSettings _apiSettings;
         public readonly HttpClient _httpClient;
         public ChatController(IOptions<ApiSettings> apiSettings, HttpClient httpClient)
@@ -30,7 +27,7 @@ namespace dotnet_chat_rag.Controllers
             {
                 // httpClient.DefaultRequestHeaders.Add("api-key", API_KEY);
                 _httpClient.DefaultRequestHeaders.Add("api-key", _apiSettings.ApiKey);
-                
+
                 var payload = new
                 {
                     messages = new object[]
@@ -70,11 +67,7 @@ namespace dotnet_chat_rag.Controllers
                     .GetString();
 
                 return Ok(new { content = messageContent });
-
-
             }
-
-
         }
     }
 
