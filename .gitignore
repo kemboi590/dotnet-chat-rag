@@ -1,0 +1,20 @@
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore app settings containing sensitive information (optional)
+appsettings.json
+
+# User-specific files
+.vscode/
+.vs/
+*.user
+*.suo
+
+# Dependency directories
+packages/
+
+# Other temporary files
+*.tmp
+*.log
+*.lock
