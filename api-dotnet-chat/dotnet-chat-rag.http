@@ -3,7 +3,6 @@
 GET {{dotnet_chat_rag_HostAddress}}/weatherforecast/
 Accept: application/json
 
-### Ask gpt a question
 
 
 ### Chat/ask

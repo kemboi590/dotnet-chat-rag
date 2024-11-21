@@ -10,18 +10,18 @@ namespace dotnet_chat_rag.Controllers
 {
     [Route("api/[controller]")] //https://localhost:5001/api/chat/ask
     [ApiController]
-    public class ChatController : ControllerBase
+    public class ChatController : ControllerBase //base class is a class that handles HTTP requests
     {
         private readonly ApiSettings _apiSettings;
-        public readonly HttpClient _httpClient;
-        public ChatController(IOptions<ApiSettings> apiSettings, HttpClient httpClient)
+        public readonly HttpClient _httpClient; //HttpClient is used to send HTTP requests and receive HTTP responses from a resource identified by a URI
+        public ChatController(IOptions<ApiSettings> apiSettings, HttpClient httpClient) //Constructor helps to initialize the object of the class. i.e HttpClient, ApiSettings
         {
             _apiSettings = apiSettings.Value;
             _httpClient = httpClient;
         }
 
-        [HttpPost("ask")]
-        public async Task<IActionResult> AskQuestion([FromBody] QuestionRequest request)
+        [HttpPost("ask")] //POST method means to create a new resource (CRUD operation)
+        public async Task<IActionResult> AskQuestion([FromBody] QuestionRequest request) //FromBody attribute is used to bind the request body to a parameter in a controller action
         {
             using (var httpClient = new HttpClient())
             {
@@ -55,16 +55,16 @@ namespace dotnet_chat_rag.Controllers
                     }
                 };
 
-                var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, new MediaTypeHeaderValue("application/json"));
-                var response = await _httpClient.PostAsync(_apiSettings.Endpoint, content);
-                var responseString = await response.Content.ReadAsStringAsync();
-                var responseJson = JsonDocument.Parse(responseString);
+                var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, new MediaTypeHeaderValue("application/json"));// selialize the payload to JSON format (string format - Json formart)
+                var response = await _httpClient.PostAsync(_apiSettings.Endpoint, content); //Send a POST request to the specified Uri as an asynchronous operation
+                var responseString = await response.Content.ReadAsStringAsync(); //Read HTTP content as a string from GPT4 API
+                var responseJson = JsonDocument.Parse(responseString); //convert the JSON response to a JSON document
 
                 var messageContent = responseJson.RootElement
                     .GetProperty("choices")[0]
                     .GetProperty("message")
                     .GetProperty("content")
-                    .GetString();
+                    .GetString(); //Get the response from the GPT4 API
 
                 return Ok(new { content = messageContent });
             }

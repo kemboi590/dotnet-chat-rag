@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Header from "./Header";
 
 const Chat: React.FC = () => {
   const [userInput, setUserInput] = useState<string>("");
@@ -36,20 +37,19 @@ const Chat: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen bg-gray-100 p-4">
+       <Header />
       <div className="flex-1 overflow-y-auto bg-white p-4 rounded shadow">
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`mb-2 ${
-              msg.role === "user" ? "text-right" : "text-left"
-            }`}
+            className={`mb-2 ${msg.role === "user" ? "text-right" : "text-left"
+              }`}
           >
             <div
-              className={`inline-block px-4 py-2 rounded ${
-                msg.role === "user"
+              className={`inline-block px-4 py-2 rounded ${msg.role === "user"
                   ? "bg-blue-500 text-white"
                   : "bg-gray-200 text-gray-900"
-              }`}
+                }`}
             >
               {msg.content}
             </div>

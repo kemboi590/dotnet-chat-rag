@@ -3,21 +3,18 @@ using dotnet_chat_rag.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddControllers(); // used to add controllers to the application
+builder.Services.AddOpenApi(); // used to describe the API in a standard way
 
 // Configure ApiSettings
-builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
+builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings")); // used to configure the API settings
 
-builder.Services.AddHttpClient<ChatController>();
+builder.Services.AddHttpClient<ChatController>();//HttpClient is used to send HTTP requests and receive HTTP responses from a resource identified by a URI
 
-// Add CORS policy
+// Add CORS policy - API can be accessed from any domain
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins",
+    options.AddPolicy("AllowAllOrigins", 
         builder =>
         {
             builder.AllowAnyOrigin()
@@ -27,22 +24,22 @@ builder.Services.AddCors(options =>
 });
 
 
-var app = builder.Build();
+var app = builder.Build(); // the application is ready to run
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection(); // used to redirect HTTP requests to HTTPS
 
-app.UseAuthorization();
+app.UseAuthorization(); // used to authorize the user to access the API
 
 // Use CORS policy
 app.UseCors("AllowAllOrigins");
 
-app.MapControllers();
+app.MapControllers(); // application is ready to accept requests
 
 app.Run();
 
