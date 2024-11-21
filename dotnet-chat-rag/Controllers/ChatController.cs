@@ -38,7 +38,7 @@ namespace dotnet_chat_rag.Controllers
                             {
                                 new {
                                     type = "text",
-                                    text = "You are an AI assistant that helps people find information."
+                                    text = "You are an AI assistant that helps people find information. Please provide concise responses."
                                 }
                             }
                         },
